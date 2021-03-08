@@ -1,17 +1,19 @@
 const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
 async function main(){
 const uri = "mongodb+srv://admin:admin@cluster0.curam.mongodb.net/sample_training?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology: true , connectTimeoutMS: 30000 , keepAlive: 1} );
 
-
 await client.connect().then( (data) => { console.log("Connected")}, (err) => { console.log(err)} );
+
 /*
 databasesList = await client.db().admin().listDatabases();
 console.log("Databases:");
 databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 */
 
+<<<<<<< HEAD
 /*
 const movies = client.db("sample_mflix").collection("movies").find();
 console.log(movies);
@@ -36,7 +38,6 @@ client.close();
 });
 
 // client.close();
-}
 
 main().catch(console.error);
 
