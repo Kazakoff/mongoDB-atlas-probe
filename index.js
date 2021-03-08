@@ -7,7 +7,11 @@ await client.connect().then( (data) => { console.log("Databases:")}, (err) => { 
 databasesList = await client.db().admin().listDatabases();
 console.log("Databases:");
 databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-//client.close();
+const movies = client.db("sample_mflix").collection("movies").find();
+console.log(movies);
+
+
+client.close();
 }
 
 main().catch(console.error);
