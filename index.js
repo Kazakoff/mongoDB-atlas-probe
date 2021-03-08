@@ -13,7 +13,6 @@ console.log("Databases:");
 databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 */
 
-<<<<<<< HEAD
 /*
 const movies = client.db("sample_mflix").collection("movies").find();
 console.log(movies);
