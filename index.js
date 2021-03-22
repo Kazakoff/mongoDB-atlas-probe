@@ -35,7 +35,7 @@ console.log(movies);
 client.close();
 //moviesComents.forEach(itm => {console.log(itm)});
 });
-
+}
 // client.close();
 
 main().catch(console.error);
