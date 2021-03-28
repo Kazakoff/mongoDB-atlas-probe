@@ -1,12 +1,19 @@
+
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const URI = "mongodb+srv://admin:admin@cluster0.curam.mongodb.net/sample_training?retryWrites=true&w=majority";
 
+
+
+async function connect(uri){
+  const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology: true , connectTimeoutMS: 30000 , keepAlive: 1} );
+  
+  await client.connect().then( (data) => { console.log("Connected")}, (err) => { console.log(err)} );
+  return client;
+}
 async function main(){
-const uri = "mongodb+srv://admin:admin@cluster0.curam.mongodb.net/sample_training?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology: true , connectTimeoutMS: 30000 , keepAlive: 1} );
 
-await client.connect().then( (data) => { console.log("Connected")}, (err) => { console.log(err)} );
-
+  const client = await connect(URI);
 /*
 databasesList = await client.db().admin().listDatabases();
 console.log("Databases:");
@@ -37,7 +44,7 @@ client.close();
 });
 
 // client.close();
-console.log("regerg");
+
 main().catch(console.error);
 }
 /*client.connect(err => {
