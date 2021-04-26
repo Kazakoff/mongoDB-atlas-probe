@@ -36,13 +36,37 @@ async function getFilmsComments(client){
  });
 }
 
+async function getUsersWithEquipment(client){
+
+  client.db("time_man").collection("users").aggregate([
+    {
+       $lookup:
+          {
+             from: "equipment",
+             localField: "actions[0].equipment[0].ref",
+             foreignField: "_id",
+             as: "equipment"
+         }
+    }
+  ]).limit(5).toArray( function(err, docs) {
+      if (err)  console.log(err);
+         else {
+             console.log("Found the following records");
+             console.log(docs);
+         }
+
+ });
+}
+
 async function main(){
 
   const client = await connect(URI);
   
-  await printDatabases(client);
+  await getUsersWithEquipment(client);
+
+  //await printDatabases(client);
  
-  await getFilmsComments(client);
+  //await getFilmsComments(client);
 
 /*
 const movies = client.db("sample_mflix").collection("movies").find();
