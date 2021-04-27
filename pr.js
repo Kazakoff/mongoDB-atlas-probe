@@ -43,7 +43,7 @@ async function getUsersWithEquipment(client){
        $lookup:
           {
              from: "equipment",
-             localField: "actions[0].equipment[0].ref",
+             localField: "actions.equipment.ref",
              foreignField: "_id",
              as: "equipment"
          }
@@ -53,6 +53,7 @@ async function getUsersWithEquipment(client){
          else {
              console.log("Found the following records");
              console.log(docs);
+             console.log(docs[0].equipment);
          }
 
  });
@@ -67,13 +68,8 @@ async function main(){
   //await printDatabases(client);
  
   //await getFilmsComments(client);
-
-/*
-const movies = client.db("sample_mflix").collection("movies").find();
-console.log(movies);
-*/
  
-//client.close();
+// client.close();
 
 }
 
