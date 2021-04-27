@@ -16,7 +16,7 @@ async function connect(uri){
 
 async function getFilmsComments(client){
 
-  client.db("sample_mflix").collection("comments").aggregate([
+  return client.db("sample_mflix").collection("comments").aggregate([
     {
        $lookup:
           {
@@ -26,19 +26,12 @@ async function getFilmsComments(client){
              as: "movie"
          }
     }
-  ]).limit(5).toArray( function(err, docs) {
-      if (err)  console.log(err);
-         else {
-             console.log("Found the following records");
-             console.log(docs);
-         }
-
- });
+  ]).limit(5).toArray( );
 }
 
 async function getUsersWithEquipment(client){
 
-  client.db("time_man").collection("users").aggregate([
+  return client.db("time_man").collection("users").aggregate([
     {
        $lookup:
           {
@@ -48,28 +41,25 @@ async function getUsersWithEquipment(client){
              as: "equipment"
          }
     }
-  ]).limit(5).toArray( function(err, docs) {
-      if (err)  console.log(err);
-         else {
-             console.log("Found the following records");
-             console.log(docs);
-             console.log(docs[0].equipment);
-         }
-
- });
+  ]).limit(5).toArray( );
 }
 
 async function main(){
 
   const client = await connect(URI);
   
-  await getUsersWithEquipment(client);
+  const user =  await getUsersWithEquipment(client);
+  console.log(user);
 
-  //await printDatabases(client);
- 
-  //await getFilmsComments(client);
- 
-// client.close();
+  const dbs = await printDatabases(client);
+  console.log(dbs);
+
+
+  const films = await getFilmsComments(client);
+  console.log(films);
+
+
+ client.close();
 
 }
 
